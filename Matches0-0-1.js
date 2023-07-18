@@ -1,6 +1,9 @@
 //Global Variables
 var matchesContainer = document.getElementById('matches-container')
+var todaysDate = document.getElementById('todays-date')
+let currentSeconds = Math.floor(Date.now() / 1000);
 
+todaysDate.innerHTML = epochToDate(currentSeconds)
 
 function getMatches() {
 
