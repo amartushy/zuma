@@ -1,9 +1,9 @@
 
-
+//Global Variables
 
 var usersContainer = document.getElementById('users-container')
 
-function getUsersAndCreateDivs() {
+function getUsers() {
 
     while(usersContainer.firstChild) {
         usersContainer.removeChild(usersContainer.firstChild)
@@ -18,7 +18,8 @@ function getUsersAndCreateDivs() {
     })
 }
 
-getUsersAndCreateDivs()
+
+getUsers()
 
 
 
@@ -47,6 +48,9 @@ function buildUsersBlock(ID, name, email, profilePhoto) {
 
     var photoBlock = document.createElement('img')
 	photoBlock.setAttribute('class', 'item-grid-photo')
+    photoBlock.addEventListener('click', () => {
+        loadProfile(ID)
+    })
 	photoBlock.src = profilePhoto
 	photoContainer.appendChild(photoBlock)
 
