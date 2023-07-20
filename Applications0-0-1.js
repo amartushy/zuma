@@ -84,7 +84,7 @@ function buildApplicationsBlock(ID, date, name, profilePhoto) {
     var acceptIcon = document.createElement('div')
 	acceptIcon.setAttribute('class', 'accept-icon')
     acceptIcon.addEventListener('click', () => {
-        updateApplicationStatus(ID, "accepted")
+        updateApplicationStatus(ID, "recentlyAccepted")
     })
     acceptIcon.innerHTML = ""
     actionsContainer.appendChild(acceptIcon)
