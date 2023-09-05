@@ -37,7 +37,7 @@ function buildUsersBlock(ID, name, email, profilePhoto) {
     var nameBlock = document.createElement('div')
 	nameBlock.setAttribute('class', 'item-grid-header')
     if (name == "" || name == "undefined" ) {
-        nameBlock.innerHTML = "No Name Inputted"
+        nameBlock.innerHTML = "No Name"
     } else {
         nameBlock.innerHTML = name
     }
@@ -45,7 +45,7 @@ function buildUsersBlock(ID, name, email, profilePhoto) {
 
     var emailBlock = document.createElement('div')
 	emailBlock.setAttribute('class', 'item-grid-header')
-    if (name == "" || name == "undefined" ) {
+    if (email == "") {
         emailBlock.innerHTML = "No Email"
     } else {
         emailBlock.innerHTML = email
@@ -88,3 +88,4 @@ function buildUsersBlock(ID, name, email, profilePhoto) {
     actionsContainer.appendChild(cancelIcon)
 
 }
+
