@@ -88,6 +88,7 @@ function buildUsersBlock(ID, name, email, profilePhoto) {
     cancelIcon.addEventListener('click', () => {
         console.log("deleted user: ", ID)
         updateApplicationStatus(ID, "deleted")
+	getUsers()
     })
     actionsContainer.appendChild(cancelIcon)
 
