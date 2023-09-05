@@ -13,7 +13,7 @@ function getUsers() {
 
             var data = doc.data()
             
-            if(doc.applicationStatus == "accepted") {
+            if(data.applicationStatus == "accepted") {
                 buildUsersBlock(doc.id, data.firstName, data.email, data.photo1)
 
             }
