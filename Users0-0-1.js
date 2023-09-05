@@ -1,4 +1,3 @@
-
 //Global Variables
 
 var usersContainer = document.getElementById('users-container')
@@ -13,7 +12,11 @@ function getUsers() {
         querySnapshot.forEach( (doc) => {
 
             var data = doc.data()
-            buildUsersBlock(doc.id, data.firstName, data.email, data.photo1)
+            
+            if(doc.applicationStatus == "accepted") {
+                buildUsersBlock(doc.id, data.firstName, data.email, data.photo1)
+
+            }
         })
     })
 }
@@ -33,12 +36,20 @@ function buildUsersBlock(ID, name, email, profilePhoto) {
 
     var nameBlock = document.createElement('div')
 	nameBlock.setAttribute('class', 'item-grid-header')
-	nameBlock.innerHTML = name
+    if (name == "" || name == "undefined" ) {
+        nameBlock.innerHTML = "No Name Inputted"
+    } else {
+        nameBlock.innerHTML = name
+    }
 	userBlock.appendChild(nameBlock)
 
     var emailBlock = document.createElement('div')
 	emailBlock.setAttribute('class', 'item-grid-header')
-	emailBlock.innerHTML = email
+    if (name == "" || name == "undefined" ) {
+        emailBlock.innerHTML = "No Email"
+    } else {
+        emailBlock.innerHTML = email
+    }
 	userBlock.appendChild(emailBlock)
 
     //Photo Container
@@ -51,7 +62,13 @@ function buildUsersBlock(ID, name, email, profilePhoto) {
     photoBlock.addEventListener('click', () => {
         loadProfile(ID)
     })
-	photoBlock.src = profilePhoto
+    
+    if (profilePhoto == "") {
+        photoBlock.src = "https://firebasestorage.googleapis.com/v0/b/zuma-39233.appspot.com/o/ZumaLogo.png?alt=media&token=1e0a55f6-ce8e-43e4-ad17-db0495c0fe99"
+    } else {
+        photoBlock.src = profilePhoto
+    }
+    
 	photoContainer.appendChild(photoBlock)
 
 
@@ -64,11 +81,6 @@ function buildUsersBlock(ID, name, email, profilePhoto) {
 	editIcon.setAttribute('class', 'edit-icon')
     editIcon.innerHTML = ""
     actionsContainer.appendChild(editIcon)
-
-    var notifyIcon = document.createElement('div')
-	notifyIcon.setAttribute('class', 'notify-icon')
-    notifyIcon.innerHTML = ""
-    actionsContainer.appendChild(notifyIcon)
 
     var cancelIcon = document.createElement('div')
 	cancelIcon.setAttribute('class', 'cancel-icon')
