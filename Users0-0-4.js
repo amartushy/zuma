@@ -85,6 +85,10 @@ function buildUsersBlock(ID, name, email, profilePhoto) {
     var cancelIcon = document.createElement('div')
 	cancelIcon.setAttribute('class', 'cancel-icon')
     cancelIcon.innerHTML = ""
+    cancelIcon.addEventListener('click', () => {
+        console.log("deleted user: ", ID)
+        updateApplicationStatus(ID, "deleted")
+    })
     actionsContainer.appendChild(cancelIcon)
 
 }
