@@ -1,5 +1,6 @@
 //Global Variables
 var applicationsContainer = document.getElementById('application-container')
+var applicationsDropdownText = document.getElementById('applications-dropdown-text')
 var applicationsPendingButton = document.getElementById('applications-pending-button')
 var applicationsAcceptedButton = document.getElementById('applications-accepted-button')
 var applicationsRejectedButton = document.getElementById('applications-rejected-button')
@@ -8,40 +9,81 @@ var currentlyShowingStatus = "pending"
 
 applicationsPendingButton.addEventListener('click', () => {
     currentlyShowingStatus = "pending"
+    applicationsDropdownText.innerHTML = "Pending"
     getApplications(currentlyShowingStatus)
 })
 
 applicationsAcceptedButton.addEventListener('click', () => {
     currentlyShowingStatus = "accepted"
+    applicationsDropdownText.innerHTML = "Accepted"
+
     getApplications(currentlyShowingStatus)
 })
 
 applicationsRejectedButton.addEventListener('click', () => {
     currentlyShowingStatus = "rejected"
+    applicationsDropdownText.innerHTML = "Rejected"
+
     getApplications(currentlyShowingStatus)
 })
 
 
+//function getApplications(applicationStatus) {
+//
+//    while(applicationsContainer.firstChild) {
+//        applicationsContainer.removeChild(applicationsContainer.firstChild)
+//    }
+//
+//    database.collection("users").get().then( (querySnapshot) => {
+//        querySnapshot.forEach( (doc) => {
+//
+//            var data = doc.data()
+//
+//            if ( applicationStatus == data.applicationStatus ) {
+//                console.log(data.applicationStatus)
+//                buildApplicationsBlock(doc.id, data.dateCreated, data.firstName, data.photo1)
+//            }
+//        })
+//    })
+//}
+//
+//getApplications("pending")
+
 function getApplications(applicationStatus) {
 
-    while(applicationsContainer.firstChild) {
-        applicationsContainer.removeChild(applicationsContainer.firstChild)
+    while (applicationsContainer.firstChild) {
+        applicationsContainer.removeChild(applicationsContainer.firstChild);
     }
 
-    database.collection("users").get().then( (querySnapshot) => {
-        querySnapshot.forEach( (doc) => {
+    let applicationsArray = [];
 
-            var data = doc.data()
-            
-            if ( applicationStatus == data.applicationStatus ) {
-                console.log(data.applicationStatus)
-                buildApplicationsBlock(doc.id, data.dateCreated, data.firstName, data.photo1)
+    database.collection("users").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            var data = doc.data();
+            if (applicationStatus == data.applicationStatus) {
+                applicationsArray.push({
+                    id: doc.id,
+                    dateCreated: data.dateCreated,
+                    firstName: data.firstName,
+                    photo1: data.photo1
+                });
             }
-        })
-    })
+        });
+
+        // Sorting the array based on dateCreated
+        applicationsArray.sort((a, b) => {
+            return new Date(a.dateCreated) - new Date(b.dateCreated);
+        });
+
+        // Building the blocks after sorting
+        applicationsArray.forEach(app => {
+            buildApplicationsBlock(app.id, app.dateCreated, app.firstName, app.photo1);
+        });
+    });
 }
 
-getApplications("pending")
+getApplications("pending");
+
 
 
 
