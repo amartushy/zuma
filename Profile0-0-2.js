@@ -130,7 +130,7 @@ var iconReferenceURLs = {
 
 
 function getCityFromLatLng(lat, lng, callback) {
-    const apiKey = 'YOUR_GOOGLE_API_KEY'; // Replace with your API key
+    const apiKey = 'AIzaSyCjoBce8ajMbuNP57Xhh5vyvwlbOHlXJh8'; // Replace with your API key
     const endpoint = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`;
 
     fetch(endpoint)
