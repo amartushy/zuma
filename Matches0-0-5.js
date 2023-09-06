@@ -62,8 +62,11 @@ function buildMatch(ID, date, user1ID, user2ID) {
     //     })
 
     //Name Container
-    var nameBlock = document.createElement('div')
-	nameBlock.setAttribute('class', 'item-grid-header')
+    var matchInfoContainer = document.createElement('div')
+    matchInfoContainer.setAttribute('class', 'match-info-container')
+    var matchNameText = document.createElement('div')
+    matchNameText.setAttribute('class', 'match-name-text')
+    
     database.collection('users').doc(user1ID).get()
         .then(doc => {
             if (doc.exists) {
@@ -75,20 +78,24 @@ function buildMatch(ID, date, user1ID, user2ID) {
                 } else {
                     matchImage.src = doc.data().photo1
                 }
-                nameBlock.appendChild(matchImage)
+                matchInfoContainer.appendChild(matchImage)
                 
+                matchNameText.innerHTML = doc.data().firstName + doc.data().lastName
                 
-                nameBlock.innerHTML = doc.data().firstName + doc.data().lastName
+                matchInfoContainer.appendChild(matchNameText)
             } else {
                 console.log('No such document!');
-                nameBlock.innerHTML = "No Name"
+                matchNameText.innerHTML = "No Name"
 
             }
         })
     userBlock.appendChild(nameBlock)
 
-    var nameBlock2 = document.createElement('div')
-	nameBlock2.setAttribute('class', 'item-grid-header')
+    var matchInfoContainer2 = document.createElement('div')
+    matchInfoContainer2.setAttribute('class', 'match-info-container')
+    var matchNameText2 = document.createElement('div')
+    matchNameText2.setAttribute('class', 'match-name-text')
+    
     database.collection('users').doc(user2ID).get()
         .then(doc => {
             if (doc.exists) {
@@ -99,12 +106,15 @@ function buildMatch(ID, date, user1ID, user2ID) {
                 } else {
                     matchImage.src = doc.data().photo1
                 }
-                nameBlock2.appendChild(matchImage)
+                matchInfoContainer2.appendChild(matchImage)
                 
-                nameBlock2.innerHTML = doc.data().firstName + doc.data().lastName
+                matchNameText2.innerHTML = doc.data().firstName + doc.data().lastName
+                
+                matchInfoContainer2.appendChild(matchNameText2)
+
             } else {
                 console.log('No such document!');
-                nameBlock2.innerHTML = "No Name"
+                matchNameText2.innerHTML = "No Name"
 
             }
         })
