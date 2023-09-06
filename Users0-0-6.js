@@ -80,6 +80,9 @@ function buildUsersBlock(ID, name, email, profilePhoto) {
     var editIcon = document.createElement('div')
 	editIcon.setAttribute('class', 'edit-icon')
     editIcon.innerHTML = ""
+    editIcon.addEventListener('click', () => {
+        loadProfile(ID)
+    })
     actionsContainer.appendChild(editIcon)
 
     var cancelIcon = document.createElement('div')
