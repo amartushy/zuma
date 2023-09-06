@@ -89,7 +89,7 @@ function buildMatch(ID, date, user1ID, user2ID) {
 
             }
         })
-    userBlock.appendChild(nameBlock)
+    userBlock.appendChild(matchInfoContainer)
 
     var matchInfoContainer2 = document.createElement('div')
     matchInfoContainer2.setAttribute('class', 'match-info-container')
@@ -118,7 +118,7 @@ function buildMatch(ID, date, user1ID, user2ID) {
 
             }
         })
-    userBlock.appendChild(nameBlock2)
+    userBlock.appendChild(matchInfoContainer2)
 
 
 
