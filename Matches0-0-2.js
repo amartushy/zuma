@@ -3,7 +3,7 @@ var matchesContainer = document.getElementById('matches-container')
 var todaysDate = document.getElementById('todays-date')
 let currentSeconds = Math.floor(Date.now() / 1000);
 
-todaysDate.innerHTML = epochToDate(currentSeconds)
+todaysDate.innerHTML = epochToDateString(currentSeconds)
 
 function getMatches() {
 
@@ -39,7 +39,7 @@ function buildMatch(ID, date, user1ID, user2ID) {
 
     var dateBlock = document.createElement('div')
 	dateBlock.setAttribute('class', 'item-grid-header')
-	dateBlock.innerHTML = epochToDate(date)
+	dateBlock.innerHTML = epochToDateString(date)
 	userBlock.appendChild(dateBlock)
 
     //Photo Container
@@ -108,7 +108,20 @@ function buildMatch(ID, date, user1ID, user2ID) {
 }
 
 
+function epochToDateString(epochInSeconds) {
+    // Convert the epoch from seconds to milliseconds
+    const date = new Date(epochInSeconds * 1000);
 
+    // Get day, month, and year
+    const day = date.getDate();
+    const year = date.getFullYear();
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December"];
+    const month = monthNames[date.getMonth()];
+
+    // Return the formatted string
+    return `${month} ${day}, ${year}`;
+}
 
 
 
