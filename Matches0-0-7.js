@@ -80,7 +80,7 @@ function buildMatch(ID, date, user1ID, user2ID) {
                 }
                 matchInfoContainer.appendChild(matchImage)
                 
-                matchNameText.innerHTML = doc.data().firstName + doc.data().lastName
+                matchNameText.innerHTML = doc.data().firstName + " " + doc.data().lastName
                 
                 matchInfoContainer.appendChild(matchNameText)
             } else {
@@ -108,7 +108,7 @@ function buildMatch(ID, date, user1ID, user2ID) {
                 }
                 matchInfoContainer2.appendChild(matchImage)
                 
-                matchNameText2.innerHTML = doc.data().firstName + doc.data().lastName
+                matchNameText2.innerHTML = doc.data().firstName + " " + doc.data().lastName
                 
                 matchInfoContainer2.appendChild(matchNameText2)
 
