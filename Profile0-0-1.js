@@ -36,7 +36,14 @@ function loadProfile(userID) {
 
                 // Assign the user data to the HTML elements
                 profileName.innerHTML = data.firstName;
-                profileLocation.innerHTML = data.lat;
+                getCityFromLatLng(data.lat, data.lng, (city) => {
+                    if (city) {
+                        profileLocation.innerHTML = city;
+                    } else {
+                        profileLocation.innerHTML = "Unknown Location";  // Or whatever default message you'd like
+                    }
+                });
+
                 profileEmail.innerHTML = data.email;
                 profilePhone.innerHTML = data.phoneNumber;
                 profileDOB.innerHTML = data.birthday;
@@ -118,4 +125,33 @@ var iconReferenceURLs = {
     'Wine' : 'https://firebasestorage.googleapis.com/v0/b/zuma-39233.appspot.com/o/Icons%2FWine.png?alt=media&token=cb809846-a2ad-4d26-92c9-394218340341',
     'Writing' : 'https://firebasestorage.googleapis.com/v0/b/zuma-39233.appspot.com/o/Icons%2FWriting.png?alt=media&token=df91e372-d2f3-4cd7-b429-fccb2f28c6dc',
     'Yoga' : 'https://firebasestorage.googleapis.com/v0/b/zuma-39233.appspot.com/o/Icons%2FYoga.png?alt=media&token=04ae5e7d-050e-4432-be39-3583a425995a'
+}
+
+
+
+function getCityFromLatLng(lat, lng, callback) {
+    const apiKey = 'YOUR_GOOGLE_API_KEY'; // Replace with your API key
+    const endpoint = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`;
+
+    fetch(endpoint)
+        .then(response => response.json())
+        .then(data => {
+            let cityName = null;
+            if (data.status === "OK") {
+                for (let i = 0; i < data.results[0].address_components.length; i++) {
+                    let component = data.results[0].address_components[i];
+                    if (component.types.includes("locality")) {
+                        cityName = component.long_name;
+                        break;
+                    }
+                }
+            } else {
+                console.error('Error with Geocoding API:', data.status);
+            }
+            callback(cityName); // Call the callback with the retrieved city name
+        })
+        .catch(error => {
+            console.error('Failed to fetch data:', error);
+            callback(null); // Call the callback with null in case of error
+        });
 }
