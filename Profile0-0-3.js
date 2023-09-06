@@ -1,3 +1,4 @@
+
 var profileScreen = document.getElementById('profile-screen')
 var dashTabWrapper = document.getElementById('dash-tab-wrapper')
 
@@ -127,8 +128,6 @@ var iconReferenceURLs = {
     'Yoga' : 'https://firebasestorage.googleapis.com/v0/b/zuma-39233.appspot.com/o/Icons%2FYoga.png?alt=media&token=04ae5e7d-050e-4432-be39-3583a425995a'
 }
 
-
-
 function getCityFromLatLng(lat, lng, callback) {
     const apiKey = 'AIzaSyCjoBce8ajMbuNP57Xhh5vyvwlbOHlXJh8'; // Replace with your API key
     const endpoint = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`;
@@ -137,21 +136,27 @@ function getCityFromLatLng(lat, lng, callback) {
         .then(response => response.json())
         .then(data => {
             let cityName = null;
+            let stateName = null;
             if (data.status === "OK") {
                 for (let i = 0; i < data.results[0].address_components.length; i++) {
                     let component = data.results[0].address_components[i];
                     if (component.types.includes("locality")) {
                         cityName = component.long_name;
-                        break;
+                    }
+                    if (component.types.includes("administrative_area_level_1")) {
+                        stateName = component.short_name;
                     }
                 }
             } else {
                 console.error('Error with Geocoding API:', data.status);
             }
-            callback(cityName); // Call the callback with the retrieved city name
+            
+            // Return the formatted "City, State" or a default if one of them is missing
+            let locationString = cityName && stateName ? `${cityName}, ${stateName}` : "Unknown Location";
+            callback(locationString);
         })
         .catch(error => {
             console.error('Failed to fetch data:', error);
-            callback(null); // Call the callback with null in case of error
+            callback("Unknown Location");
         });
 }
