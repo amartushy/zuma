@@ -67,7 +67,18 @@ function buildMatch(ID, date, user1ID, user2ID) {
     database.collection('users').doc(user1ID).get()
         .then(doc => {
             if (doc.exists) {
-                nameBlock.innerHTML = doc.data().firstName
+                
+                var matchImage = document.createElement('img')
+                matchImage.setAttribute('class', 'search-result-image')
+                if (doc.data().profilePhoto == "") {
+                    matchImage.src = "https://firebasestorage.googleapis.com/v0/b/zuma-39233.appspot.com/o/ZumaLogo.png?alt=media&token=1e0a55f6-ce8e-43e4-ad17-db0495c0fe99"
+                } else {
+                    matchImage.src = doc.data().profilePhoto
+                }
+                nameBlock.appendChild(matchImage)
+                
+                
+                nameBlock.innerHTML = doc.data().firstName + doc.data().lastName
             } else {
                 console.log('No such document!');
                 nameBlock.innerHTML = "No Name"
@@ -81,7 +92,16 @@ function buildMatch(ID, date, user1ID, user2ID) {
     database.collection('users').doc(user2ID).get()
         .then(doc => {
             if (doc.exists) {
-                nameBlock2.innerHTML = doc.data().firstName
+                var matchImage = document.createElement('img')
+                matchImage.setAttribute('class', 'search-result-image')
+                if (doc.data().profilePhoto == "") {
+                    matchImage.src = "https://firebasestorage.googleapis.com/v0/b/zuma-39233.appspot.com/o/ZumaLogo.png?alt=media&token=1e0a55f6-ce8e-43e4-ad17-db0495c0fe99"
+                } else {
+                    matchImage.src = doc.data().profilePhoto
+                }
+                nameBlock.appendChild(matchImage)
+                
+                nameBlock2.innerHTML = doc.data().firstName + doc.data().lastName
             } else {
                 console.log('No such document!');
                 nameBlock2.innerHTML = "No Name"
