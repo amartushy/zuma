@@ -70,10 +70,10 @@ function buildMatch(ID, date, user1ID, user2ID) {
                 
                 var matchImage = document.createElement('img')
                 matchImage.setAttribute('class', 'search-result-image')
-                if (doc.data().profilePhoto == "") {
+                if (doc.data().photo1 == "") {
                     matchImage.src = "https://firebasestorage.googleapis.com/v0/b/zuma-39233.appspot.com/o/ZumaLogo.png?alt=media&token=1e0a55f6-ce8e-43e4-ad17-db0495c0fe99"
                 } else {
-                    matchImage.src = doc.data().profilePhoto
+                    matchImage.src = doc.data().photo1
                 }
                 nameBlock.appendChild(matchImage)
                 
@@ -94,12 +94,12 @@ function buildMatch(ID, date, user1ID, user2ID) {
             if (doc.exists) {
                 var matchImage = document.createElement('img')
                 matchImage.setAttribute('class', 'search-result-image')
-                if (doc.data().profilePhoto == "") {
+                if (doc.data().photo1 == "") {
                     matchImage.src = "https://firebasestorage.googleapis.com/v0/b/zuma-39233.appspot.com/o/ZumaLogo.png?alt=media&token=1e0a55f6-ce8e-43e4-ad17-db0495c0fe99"
                 } else {
-                    matchImage.src = doc.data().profilePhoto
+                    matchImage.src = doc.data().photo1
                 }
-                nameBlock.appendChild(matchImage)
+                nameBlock2.appendChild(matchImage)
                 
                 nameBlock2.innerHTML = doc.data().firstName + doc.data().lastName
             } else {
