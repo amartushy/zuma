@@ -44,7 +44,7 @@ function getReports(reportType) {
 
 }
 
-getReports("All")
+getReports("all-reports")
 
 
 function buildReportsBlock(ID, date, userID, reportType) {
