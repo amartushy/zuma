@@ -12,7 +12,7 @@ function getReports() {
         querySnapshot.forEach( (doc) => {
 
             var data = doc.data()
-            
+            console.log(data)
             buildReportsBlock(doc.id, data.dateReported, data.reportedUserID, data.reportType)
 
         })
@@ -31,7 +31,7 @@ function buildReportsBlock(ID, date, userID, reportType) {
 
     var dateBlock = document.createElement('div')
 	dateBlock.setAttribute('class', 'item-grid-header')
-	dateBlock.innerHTML = epochToDate(date)
+	dateBlock.innerHTML = epochToDateString(date)
 	userBlock.appendChild(dateBlock)
 
 
@@ -62,43 +62,3 @@ function buildReportsBlock(ID, date, userID, reportType) {
     userBlock.appendChild(nameBlock)
 
 }
-
-
-
-
-
-
-//Helper Functions
-
-function fetchProfilePhoto(userId) {
-    return database.collection('users').doc(userId).get()
-        .then(doc => {
-            if (doc.exists) {
-                return doc.data().profilePhoto;
-            } else {
-                console.log('No such document!');
-                return null;
-            }
-        })
-        .catch(error => {
-            console.error('Error getting document:', error);
-            return null;
-        });
-}
-
-function epochToTimeString(epoch) {
-    let date = new Date(epoch * 1000); // Convert to milliseconds
-    
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
-    
-    // Convert to 12 hour format
-    let ampm = hours >= 12 ? 'pm' : 'am';
-    hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
-    
-    // Ensure always 2 digits for minutes
-    minutes = minutes < 10 ? '0' + minutes : minutes;
-    
-    return `${hours}:${minutes}${ampm}`;
-  }
