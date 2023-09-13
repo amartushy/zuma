@@ -55,7 +55,7 @@ function buildReportsBlock(ID, date, userID, reportType) {
                 nameBlock.innerHTML = doc.data().firstName
             } else {
                 console.log('No such document!');
-                nameBlock.innerHTML = "No Name"
+                nameBlock.innerHTML = "User Deleted"
 
             }
         })
