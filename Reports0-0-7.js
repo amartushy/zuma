@@ -8,7 +8,7 @@ reportTypes.forEach(function(reportType) {
 
     document.getElementById(reportType).addEventListener('click', function() {
         getReports(reportType);
-	reportTypesDropdown.fadeOut()
+        $("#report-types-dropdown").fadeOut()
 
     });
 });
