@@ -1,25 +1,50 @@
 //Global Variables
 var reportsContainer = document.getElementById('reports-container')
 
+var reportTypesDropdown = document.getElementById("report-types-dropdown")
+var reportTypes = ["all-reports", "fake-profile", "rude-behaviour", "inappropriate-content", "scam-or-commercial", "identity-hate", "off-zuma-behaviour", "underage", "not-interested", "other"]
 
-function getReports() {
+reportTypes.forEach(function(reportType) {
+
+    document.getElementById(reportType).addEventListener('click', function() {
+        getReports(reportType);
+    });
+});
+
+
+function getReports(reportType) {
 
     while(reportsContainer.firstChild) {
         reportsContainer.removeChild(reportsContainer.firstChild)
     }
+    
+    if (reportType == "all-reports") {
+        database.collection("reportedUsers").get().then( (querySnapshot) => {
+            querySnapshot.forEach( (doc) => {
 
-    database.collection("reportedUsers").get().then( (querySnapshot) => {
-        querySnapshot.forEach( (doc) => {
+                var data = doc.data()
+                console.log(data)
+                buildReportsBlock(doc.id, data.dateReported, data.reportedUserID, data.reportType)
 
-            var data = doc.data()
-            console.log(data)
-            buildReportsBlock(doc.id, data.dateReported, data.reportedUserID, data.reportType)
-
+            })
         })
-    })
+    } else {
+        var typeString = document.getElementById(reportType).innerHTML
+        
+        database.collection("reportedUsers").where("reportType", "==", typeString).get().then( (querySnapshot) => {
+            querySnapshot.forEach( (doc) => {
+
+                var data = doc.data()
+                console.log(data)
+                buildReportsBlock(doc.id, data.dateReported, data.reportedUserID, data.reportType)
+
+            })
+        })
+    }
+
 }
 
-getReports()
+getReports("All")
 
 
 function buildReportsBlock(ID, date, userID, reportType) {
