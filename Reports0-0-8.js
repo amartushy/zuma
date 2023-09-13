@@ -9,8 +9,13 @@ reportTypes.forEach(function(reportType) {
     document.getElementById(reportType).addEventListener('click', function() {
         getReports(reportType);
         $("#report-types-dropdown").fadeOut()
-
+        var typeString = document.getElementById(reportType).innerHTML
+        document.getElementById("report-type-button-text").innerHTML = typeString
     });
+});
+
+document.getElementById("report-type-button").addEventListener('click', function() {
+    $("#report-types-dropdown").fadeIn()
 });
 
 
