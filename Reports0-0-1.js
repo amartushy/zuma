@@ -13,7 +13,7 @@ function getReports() {
 
             var data = doc.data()
             
-            buildReportsBlock(doc.id, data.dateReported, data.reportedUserID)
+            buildReportsBlock(doc.id, data.dateReported, data.reportedUserID, data.reportType)
 
         })
     })
@@ -22,7 +22,7 @@ function getReports() {
 getReports()
 
 
-function buildReportsBlock(ID, date, userID) {
+function buildReportsBlock(ID, date, userID, reportType) {
 
     var userBlock = document.createElement('div')
     userBlock.setAttribute('class', 'item-grid-block')
@@ -39,25 +39,12 @@ function buildReportsBlock(ID, date, userID) {
 	timeBlock.setAttribute('class', 'item-grid-header')
 	timeBlock.innerHTML = epochToTimeString(date)
 	userBlock.appendChild(timeBlock)
-
-    //Photo Container
-    // var photoContainer = document.createElement('div')
-	// photoContainer.setAttribute('class', 'item-grid-photo-container')
-	// userBlock.appendChild(photoContainer)
-
-    // var photoBlock = document.createElement('img')
-	// photoBlock.setAttribute('class', 'item-grid-photo')
-
-    // database.collection('users').doc(userID).get()
-    //     .then(doc => {
-    //         if (doc.exists) {
-    //             photoBlock.src = doc.data().profilePhoto
-    //             photoContainer.appendChild(photoBlock)
-
-    //         } else {
-    //             console.log('No such document!');
-    //         }
-    //     })
+    
+    //Report Container
+    var reportBlock = document.createElement('div')
+    reportBlock.setAttribute('class', 'item-grid-header')
+    reportBlock.innerHTML = reportType
+    userBlock.appendChild(reportBlock)
 
     //Name Container
     var nameBlock = document.createElement('div')
@@ -74,21 +61,6 @@ function buildReportsBlock(ID, date, userID) {
         })
     userBlock.appendChild(nameBlock)
 
-
-
-    //Actions Container
-    var actionsContainer = document.createElement('div')
-	actionsContainer.setAttribute('class', 'item-grid-photo-container')
-    userBlock.appendChild(actionsContainer)
-
-    var rejectIcon = document.createElement('div')
-	rejectIcon.setAttribute('class', 'cancel-icon')
-    rejectIcon.addEventListener('click', () => {
-        updateReport(userID)
-    })
-    rejectIcon.innerHTML = ""
-    actionsContainer.appendChild(rejectIcon)
-
 }
 
 
@@ -97,9 +69,6 @@ function buildReportsBlock(ID, date, userID) {
 
 
 //Helper Functions
-function updateReport(userID) {
-
-}
 
 function fetchProfilePhoto(userId) {
     return database.collection('users').doc(userId).get()
